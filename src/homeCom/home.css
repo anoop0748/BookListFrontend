@@ -52,6 +52,9 @@
     align-items: center;
     justify-self: flex-start;
 }
+.create_new_book > #add_book_btn{
+    width: 30vh;
+}
 .create_new_book input{
     width: 50%;
     height: 8%;
