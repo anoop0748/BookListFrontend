@@ -1,0 +1,130 @@
+.home_main_cont{
+    width: 98vw;
+    height: 99vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(14, 14, 26);
+    color: #fff;
+}
+#logoutBtn{
+    width: 100px;
+    height: 2rem;
+    border-style: none;
+    border-radius: 5px;
+    background:linear-gradient(rgb(200, 9, 2),rgb(206, 67, 25));
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+#add_book_btn{
+    width: 130px;
+    height: 2rem;
+    border-style: none;
+    border-radius: 5px;
+    background:linear-gradient(rgb(25, 200, 2),rgb(62, 216, 75));
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.books_cont{
+    width: 95%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.book_show{
+    width: 21%;
+    height: 35vh;
+    border-radius: 5px;
+    border: 2px solid rgb(1, 1, 22);
+}
+.create_new_book{
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: flex-start;
+}
+.create_new_book input{
+    width: 50%;
+    height: 8%;
+    margin-bottom: 2%;
+}
+.create_new_book button{
+    width: 50%;
+    height: 8%;
+    border-radius: 5px;
+    border: 2px solid rgb(228, 231, 5);
+    background-color: rgb(14, 14, 26);
+    color: rgb(228, 231, 5);
+    font-size: 1.5rem;
+}
+.two_btnCont{
+    width: 60%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.two_btnCont button{
+    width: 40%;
+    height: 60%;
+    border-radius: 5px;
+    border-style: none;
+}
+#delete_btn{
+    color: red;
+    background-color: rgb(14, 14, 26);
+    border: 2px solid red;
+}
+#edit_btn{
+    color: rgb(0, 0, 216);
+    background-color: rgb(14, 14, 26);
+    border:2px solid rgb(0, 0, 216);
+}
+#table{
+    width: 60%;
+    height: 50vh;
+    text-align: center;
+    background-color: black;
+    border-radius: 5px;
+}
+.update_book_cont{
+    width: 60%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.update_book_cont > #add_book_btn{
+    width: 30vh;
+    background: linear-gradient(rgb(0, 255, 55),rgb(2, 180, 11));
+}
+.update_book_cont div{
+    width: 75%;
+    height: 10%;
+    margin-bottom: 2%;
+}
+.update_book_cont input{
+    width: 95%;
+    height: 70%;
+    margin-bottom: 2%;
+}
+.update_book_cont button{
+    width: 67%;
+    height: 8%;
+    border-radius: 5px;
+    border: 2px solid rgb(5, 216, 231);
+    background-color: rgb(5, 159, 170);
+    color: #fff;
+    margin-top: 2%;
+    font-size: 1.5rem;
+}

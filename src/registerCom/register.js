@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
-// const regUrl = "https://booklistbackend-nx2z.onrender.com/register/user"
-const regUrl = "http://localhost:5000/register/user"
+import './register.css'
+const regUrl = "https://booklistbackend-nx2z.onrender.com/register/user"
+// const regUrl = "http://localhost:5000/register/user"
 
 
 function Register(){
@@ -38,8 +39,8 @@ function Register(){
 
     }
     return(
-        <div>
-            <div>
+        <div className='reg_main_cont'>
+            <div className='reg_card_cont'>
                 <h1>Register</h1>
                 <input type='text' placeholder='Username should Email' onBlur={(e)=>{setUserName(e.target.value)}}/>
                 <input type='password' placeholder='password' onBlur={(e)=>{setpassword(e.target.value)}}/>
