@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import './home.css'
+import Spinner from "../loader/loader";
 const geturl = "https://booklistbackend-nx2z.onrender.com/login/user/getBooks"
-// const geturl = "http://localhost:5000/login/user/getBooks";
+//const geturl = "http://localhost:5000/login/user/getBooks";
 const postBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/postBooks";
-// const postBookurl = "http://localhost:5000/login/user/postBooks";
+//const postBookurl = "http://localhost:5000/login/user/postBooks";
 const deleteUrl = "https://booklistbackend-nx2z.onrender.com/login/user/deleteBooks";
-// const deleteUrl = "http://localhost:5000/login/user/deleteBooks";
+//const deleteUrl = "http://localhost:5000/login/user/deleteBooks";
 const putBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/putBooks";
-// const putBookurl="http://localhost:5000/login/user/putBooks";
+//const putBookurl = "http://localhost:5000/login/user/putBooks";
 
 
 function Home() {
@@ -21,27 +22,33 @@ function Home() {
     let [book_details, setBook_details] = useState({});
     let [bookDtFlag, setbookDtFlag] = useState(false);
     let [bookUpFlag, setBookUpFlag] = useState(false);
-    let [updatedBook, setUpdatedBook] = useState({})
+    let [updatedBook, setUpdatedBook] = useState({});
+    let [spinner, setSpinner] = useState(false);
+    // on mouse up render button
+    let [mouseUpBookInf,setMouseUpBookInf] = useState(false);
+    let [mouseUpIdex, setmouseUpIdex] = useState(null);
+
+    // getting data from server;
     async function getdata() {
         let auth = {
             headers: {
                 "Authorization": token,
-                "Content-Type": "application/json",
+                "Content-Type": "application/json,multipart/form-data",
                 'Access-Control-Allow-Headers':
                     'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
             }
         }
         let data = await axios.get(geturl, auth);
-        console.log(data.data)
         setbooks(data.data.books)
     }
     function addNewBook() {
         setAddBookFlag(true)
 
     }
+    const [prvImg, setprvImg] = useState("#");
     async function handleAddnewbook(e) {
-
         e.preventDefault();
+
         if (newBook.title.length === 0 || newBook.ISBN.length === 0 || newBook.author.length === 0
             || newBook.description.length === 0) {
             return alert("Please Input valide Data to create new book")
@@ -50,13 +57,20 @@ function Home() {
         let auth = {
             headers: {
                 "Authorization": token,
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
+
                 "Access-Control-Allow-Origin": '*'
             }
         }
-        console.log(newBook)
-        let res = await axios.post(postBookurl, newBook, auth);
+        setSpinner(true);
+        let bookimg = new FormData();
+        for (let keys in newBook) {
+            bookimg.append(keys, newBook[keys]);
+        }
+        console.log(bookimg)
+        let res = await axios.post(postBookurl, bookimg, auth);
         if (res.status === 200) {
+            setSpinner(false);
             setAddBookFlag(false);
             getdata();
         }
@@ -72,14 +86,18 @@ function Home() {
             navigate('/');
         }
     }, [token]);
+
+    // getting on click book details
+
     function getbookDetails(idx) {
         let book = books[idx];
         setBook_details(book);
         setbookDtFlag(true)
 
     }
+    // Update exting Book
+    const [upBImgPrv,setupBImgPrv] = useState("")
     async function handleUpdatebook(e) {
-        console.log(updatedBook)
         e.preventDefault();
         if (updatedBook.title.length === 0 || updatedBook.ISBN.length === 0 || updatedBook.author.length === 0
             || updatedBook.description.length === 0) {
@@ -89,18 +107,25 @@ function Home() {
         let auth = {
             headers: {
                 "Authorization": token,
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 "Access-Control-Allow-Origin": '*'
             }
         }
-        console.log(updatedBook)
-        let res = await axios.put(putBookurl, updatedBook, auth);
+        setSpinner(true);
+        let updateBookData = new FormData();
+        for (let keys in updatedBook) {
+            updateBookData.append(keys, updatedBook[keys]);
+        }
+        let res = await axios.put(putBookurl, updateBookData, auth);
         if (res.status === 200) {
+            setSpinner(false);
             setAddBookFlag(false);
-
             setbookDtFlag(false);
             setBookUpFlag(false);
             getdata();
+        }
+        else{
+            setSpinner(false);
         }
     }
     async function deleteBook() {
@@ -112,15 +137,25 @@ function Home() {
                 "id": book_details._id
             }
         }
+        setSpinner(true);
         let deleteRes = await axios.delete(deleteUrl, auth);
         if (deleteRes.status === 200) {
+            setSpinner(false);
             showBookList();
+        }
+        else{
+            setSpinner(false);
         }
 
     }
+
+    // togle to update book page
+
     function updateBook() {
         setBookUpFlag(true);
         setUpdatedBook(book_details);
+        setupBImgPrv(book_details.bookImg);
+        
     }
     function showBookList() {
         setAddBookFlag(false);
@@ -128,17 +163,38 @@ function Home() {
         setBookUpFlag(false);
         getdata()
     }
+    //function for mouse enter from book;
+    function funOnMouseEnter(i){
+        setmouseUpIdex(i);
+        setMouseUpBookInf(true);
+    }
+
+    //function for mouse leave from book
+    function funMouseLeave(){
+        setmouseUpIdex(null);
+        setMouseUpBookInf(false);
+    }
     return (
+        <>
+            {spinner ? <Spinner /> : ""}
+        
         <div className="home_main_cont">
+            
             <div>
                 <button id="logoutBtn" onClick={() => { logout() }}>LogOut</button>
             </div>
             {bookUpFlag ?
                 <>
+                {/* Update Exiting Book */}
+
                     <div className="update_book_cont">
                         <button id="add_book_btn" onClick={() => { showBookList() }}>show book list</button>
                         <h1>Edit Book</h1>
                         <p>Update Book info</p>
+                        <div id="upBImg-cont">
+                            <img src={upBImgPrv} />
+                                <input type="file" placeholder="Upload Book Image" accept="image/*" onChange={(e) => { setUpdatedBook({ ...updatedBook, bookImg: e.target.files[0] }); setupBImgPrv(URL.createObjectURL(e.target.files[0])) }} />
+                            </div>
                         <div>
                             <label>Title</label>
                             <input type="text" value={updatedBook.title} onChange={(e) => { setUpdatedBook({ ...updatedBook, title: e.target.value }) }} />
@@ -156,8 +212,8 @@ function Home() {
                             <input type="text" value={updatedBook.description} onChange={(e) => { setUpdatedBook({ ...updatedBook, description: e.target.value, }) }} />
                         </div>
                         <div>
-                            <label>Date</label>
-                            <input type="date" value={updatedBook.date} onChange={(e) => { setUpdatedBook({ ...updatedBook, date: e.target.value, }) }} />
+                            <label>Geners</label>
+                            <input type="text" value={updatedBook.genres} onChange={(e) => { setUpdatedBook({ ...updatedBook, geners: e.target.value, }) }} />
                         </div>
                         <div>
                             <label>Publisher</label>
@@ -169,11 +225,18 @@ function Home() {
                 </>
                 :
                 <>
+                {/* Book details UI */}
+
                     {bookDtFlag ? <>
                         <button id="add_book_btn" onClick={() => { showBookList() }}>Show Book List</button>
                         <h1>Book's Record</h1>
                         <h5>View Books Info</h5>
                         <table id="table">
+                            <tr>
+                                <td></td>
+                                <td>Cover Photo</td>
+                                <td><img id="bkdImg" src={book_details.bookImg} alt="Book cover Photo"/></td>
+                            </tr>
                             <tr>
                                 <td>1</td>
                                 <td>Title</td>
@@ -201,7 +264,7 @@ function Home() {
                             <tr>
                                 <td>5</td>
                                 <td>Published Date</td>
-                                <td>{book_details.date}</td>
+                                <td>{new Date(book_details.date).toDateString()}</td>
 
                             </tr>
                             <tr>
@@ -217,7 +280,7 @@ function Home() {
                         </div>
                     </> :
 
-
+                            // create new book UI
                         <>
                             {addBookFlag ?
                                 <>
@@ -226,16 +289,24 @@ function Home() {
                                         <h1>Add Book</h1>
 
                                         <p>Create A new Book</p>
+                                        <div>
+                                            <img src={prvImg} />
+                                            <input type="file" placeholder="Upload Book Image" accept="image/*" onChange={(e) => { setnewBook({ ...newBook, bookImg: e.target.files[0] }); setprvImg(URL.createObjectURL(e.target.files[0])) }} />
+                                        </div>
+
                                         <input type="text" placeholder="Title" onBlur={(e) => { setnewBook({ ...newBook, title: e.target.value }) }} />
                                         <input type="text" placeholder="ISBN" onBlur={(e) => { setnewBook({ ...newBook, ISBN: e.target.value }) }} />
                                         <input type="text" placeholder="Author" onBlur={(e) => { setnewBook({ ...newBook, author: e.target.value, }) }} />
                                         <input type="text" placeholder="Description" onBlur={(e) => { setnewBook({ ...newBook, description: e.target.value, }) }} />
-                                        <input type="date" placeholder="Date" onBlur={(e) => { setnewBook({ ...newBook, date: e.target.value, }) }} />
+                                        <input type="text" placeholder="Genres" onBlur={(e) => { setnewBook({ ...newBook, genres: e.target.value, }) }} />
                                         <input type="text" placeholder="Book Publisher" onBlur={(e) => { setnewBook({ ...newBook, publisherOfBook: e.target.value, }) }} />
                                         <button onClick={(e) => { handleAddnewbook(e) }}>Submit</button>
                                     </div>
 
                                 </> :
+
+                                // All book show on home Page
+
                                 <>
                                     <h1>Book List</h1>
                                     <div>
@@ -244,11 +315,14 @@ function Home() {
                                     <div className="books_cont">
                                         {books?.map((val, idx) => {
                                             return (
-                                                <div className="book_show" key={idx} onClick={() => { getbookDetails(idx) }}>
-                                                    <img src="./" />
-                                                    <h3>{val.title}</h3>
-                                                    <h5>{val.date}</h5>
-                                                    <h3>{val.author}</h3>
+                                                //  onMouseLeave={()=>{funMouseLeave()}}
+                                                <div className="book_show" key={idx} onClick={() => { getbookDetails(idx) }}
+                                                 onMouseEnter={()=>{funOnMouseEnter(idx)}} >
+                                                    <img src={val.bookImg} />
+                                                    <h3>Title - {val.title}</h3>
+                                                    <span>Date - {new Date(val.date).toLocaleDateString()}</span>
+                                                    <h3>Genres - {val.genres}</h3>
+                                                    {mouseUpBookInf && idx === mouseUpIdex?<button id="about-book-btn" onClick={() => { getbookDetails(idx) }}>About Book</button>:""}
                                                 </div>
                                             )
                                         })}
@@ -260,6 +334,7 @@ function Home() {
                 </>
             }
         </div>
+        </>
     )
 }
 export default Home

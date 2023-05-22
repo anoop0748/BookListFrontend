@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css'
+import Spinner from '../loader/loader';
 const regUrl = "https://booklistbackend-nx2z.onrender.com/login/user"
-// const regUrl = "http://localhost:5000/login/user"
+//const regUrl = "http://localhost:5000/login/user"
 
 
 function Login(){
     let [userName,setUserName] = useState("");
     let [password,setpassword] = useState("");
+    const [spinner,setSpinner] = useState(false);
      let navigate = useNavigate();
 
     async function handleLogin(e){
@@ -24,20 +26,24 @@ function Login(){
             password:password
 
         }
+        setSpinner(true);
         let res = await axios.post(regUrl,data);
-        console.log(res)
+        
         if(res.status === 200){
-            console.log(res.data.token);
-            window.localStorage.setItem('token',res.data.token)
+            setSpinner(false);
+            window.localStorage.setItem('token',res.data.token);
              navigate('/home');
         }
         else if(res.status === 401){
+            setSpinner(false);
             return alert("Sorry!! Try again")
         }
         
 
     }
     return(
+        <>
+        {spinner?<Spinner/>:""}
         <div className='main_cont'>
             <div className='card_cont'>
                 <h1>Member Login</h1>
@@ -48,6 +54,7 @@ function Login(){
                 <Link to='/register'><h2>Register user</h2></Link>
             </div>
         </div>
+        </>
     )
 }
 

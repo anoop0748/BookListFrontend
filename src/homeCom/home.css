@@ -1,6 +1,7 @@
 .home_main_cont{
-    width: 98vw;
-    height: 99vh;
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -36,39 +37,118 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content:  flex-start;
+    gap: 20px;
 }
 .book_show{
-    width: 21%;
-    height: 35vh;
+    width: 35vh;
+    height: 62vh;
+    margin: 5px 7px;
     border-radius: 5px;
     border: 2px solid rgb(1, 1, 22);
+    overflow: hidden;
+    box-shadow: 0px 0px 3px 1px rgb(114, 113, 113);
 }
+.book_show:hover{
+    box-shadow: 0px 0px 10px 2px gray;
+    transition: ease-in-out;
+}
+.book_show img{
+    width: 99.5%;
+    height: 70%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    
+    /* mix-blend-mode: color-burn; */
+}
+.book_show span{
+    
+    height: 6%;
+    margin: 1.5% 5px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.7rem;
+    
+    /* text-overflow: var("..."); */
+
+}
+.book_show h3{
+    height: 10%;
+    margin: 1.5% 5px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9rem;
+    
+}
+.book_show>#about-book-btn{
+    position: relative;
+    left: auto;
+    bottom: 10%;
+    width: 90%;
+    height: 6vh;
+    margin: 0px 5%;
+    border-top-left-radius: 8vh;
+    border-bottom-right-radius: 8vh;
+    transition: 2s;
+    border-style: double;
+    font-size: 1rem;
+    background: radial-gradient(rgba(0, 0, 0, 0.98),rgb(153, 0, 255),rgb(98 0 255));
+    color: #fff;
+    border-color: red;
+    
+}
+
+/* Create new book */
+
 .create_new_book{
     width: 90%;
-    height: 80%;
+    height: 150vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-self: flex-start;
 }
+.create_new_book div{
+    width: 50%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.create_new_book>div>img{
+    width: 50%;
+    height: 35vh;
+    border: 3px double gray;
+    aspect-ratio: 16/16;
+    outline: none;
+}
 .create_new_book > #add_book_btn{
-    width: 30vh;
+    width: 35vh;
 }
 .create_new_book input{
     width: 50%;
-    height: 8%;
+    height: 6vh;
     margin-bottom: 2%;
+    font-size: 25px;
 }
 .create_new_book button{
     width: 50%;
-    height: 8%;
+    height: 8vh;
     border-radius: 5px;
-    border: 2px solid rgb(228, 231, 5);
+    border: 4px double rgb(228, 231, 5);
     background-color: rgb(14, 14, 26);
     color: rgb(228, 231, 5);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
+.create_new_book button:hover{
+    background-color: rgb(228, 231, 5);
+    color: rgb(14, 14, 26);
+    border: 5px double rgb(14,14,26);
+}
+
+/* Book details on click */
+
 .two_btnCont{
     width: 60%;
     height: 10%;
@@ -78,30 +158,48 @@
 }
 .two_btnCont button{
     width: 40%;
-    height: 60%;
+    height: 6vh;
+    margin-top: 5px;
     border-radius: 5px;
     border-style: none;
+    font-size: 1.5rem;
 }
 #delete_btn{
     color: red;
     background-color: rgb(14, 14, 26);
     border: 2px solid red;
 }
+#delete_btn:hover{
+    border: 4px double red;
+    box-shadow: 0px 0px 5px 1px red;
+}
 #edit_btn{
     color: rgb(0, 0, 216);
     background-color: rgb(14, 14, 26);
     border:2px solid rgb(0, 0, 216);
 }
+#edit_btn:hover{
+    border: 4px double rgb(0, 0, 216);
+    box-shadow: 0px 0px 5px 1px rgb(0, 0, 216);
+}
 #table{
     width: 60%;
-    height: 50vh;
+    height: 60vh;
     text-align: center;
     background-color: black;
     border-radius: 5px;
 }
+#bkdImg{
+    width: 40%;
+    height: 30vh;
+    margin-bottom: 10px;
+}
+
+/* Updating Book */
+
 .update_book_cont{
     width: 60%;
-    height: 80vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -110,16 +208,19 @@
 .update_book_cont > #add_book_btn{
     width: 30vh;
     background: linear-gradient(rgb(0, 255, 55),rgb(2, 180, 11));
+    top: -5px;
 }
 .update_book_cont div{
     width: 75%;
-    height: 10%;
+    height: 15%;
     margin-bottom: 2%;
+    font-size: 1.5rem;
 }
 .update_book_cont input{
     width: 95%;
-    height: 70%;
+    height: 5vh;
     margin-bottom: 2%;
+    font-size: 1.5rem;
 }
 .update_book_cont button{
     width: 67%;
@@ -130,4 +231,19 @@
     color: #fff;
     margin-top: 2%;
     font-size: 1.5rem;
+}
+#upBImg-cont{
+    width: 50%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#upBImg-cont>img{
+    width: 50%;
+    height: 35vh;
+    border: 3px double gray;
+    aspect-ratio: 16/16;
+    outline: none;
 }
