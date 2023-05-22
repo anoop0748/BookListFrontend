@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import './register.css'
 import Spinner from '../loader/loader';
-//const regUrl = "https://booklistbackend-nx2z.onrender.com/register/user"
-const regUrl = "http://localhost:5000/register/user"
+const regUrl = "https://booklistbackend-nx2z.onrender.com/register/user"
+// const regUrl = "http://localhost:5000/register/user"
 
 
 function Register(){
