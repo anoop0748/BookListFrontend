@@ -317,7 +317,7 @@ function Home() {
                                             return (
                                                 //  onMouseLeave={()=>{funMouseLeave()}}
                                                 <div className="book_show" key={idx} onClick={() => { getbookDetails(idx) }}
-                                                 onMouseEnter={()=>{funOnMouseEnter(idx)}} >
+                                                 onMouseEnter={()=>{funOnMouseEnter(idx)}} onMouseLeave={()=>{funMouseLeave()}}>
                                                     <img src={val.bookImg} />
                                                     <h3>Title - {val.title}</h3>
                                                     <span>Date - {new Date(val.date).toLocaleDateString()}</span>
