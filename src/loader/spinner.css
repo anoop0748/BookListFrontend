@@ -6,12 +6,11 @@
     justify-content: center;
     background-color: #03030385;
     z-index: 1;
-    position: absolute;
-    /* background-color: #18171702; */
+    position: fixed;
 }
 .spinner_cont{
-    width: 10vw;
-    height: 10vw;
+    width: 5vw;
+    height: 5vw;
     border-radius: 10%;
     /* border: 3px solid  rgba(1, 1, 65, 0.884) ; */
     background:radial-gradient(blue,rgb(3, 3, 156),rgba(1, 1, 65, 0.884));
@@ -20,6 +19,7 @@
     
 
 }
+
 @keyframes  spinner{
     0%{
         rotate: 0deg;
@@ -27,14 +27,14 @@
     50% {
         border-radius: 50%;
         rotate: 360deg;
-        width: 5vw;
-        height: 5vw;
+        width: 2.5vw;
+        height: 2.5vw;
       }
       100% {
         border-radius: 5%;
         rotate: -360deg;
-        width: 10vw;
-        height: 10vw;
+        width: 5vw;
+        height: 5vw;
       }
 }
 .spinner-text{
@@ -42,4 +42,21 @@
     left: auto;
     top: auto;
     font-size:medium;
+    animation: textColor 1.25s infinite;
+}
+@keyframes  textColor{
+    0%{
+        font-size: 0.25rem;
+        color: rgb(0, 26, 255);
+        
+    }
+    50% {
+        font-size: 1rem;
+        color:rgb(245, 229, 15);
+      }
+      100% {
+        
+        font-size: 0.25rem;
+        color: rgb(5, 9, 250);
+      }
 }

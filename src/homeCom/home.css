@@ -20,6 +20,11 @@
     top: 20px;
     right: 20px;
 }
+/* Logout btn on hover */
+#logoutBtn:hover{
+    box-shadow: 0px 0px 3px 0.5px rgb(255, 0, 0);
+    border: 1px solid red;
+}
 #add_book_btn{
     width: 130px;
     height: 2rem;
@@ -30,6 +35,10 @@
     position: absolute;
     top: 20px;
     left: 20px;
+}
+#add_book_btn:hover{
+    box-shadow: 0px 0px 3px 0.5px rgb(25, 200, 2);
+    border: 1px solid rgb(31, 247, 2);
 }
 .books_cont{
     width: 95%;
@@ -96,6 +105,10 @@
     color: #fff;
     border-color: red;
     
+}
+#about-book-btn:hover{
+    border-color: rgb(237, 252, 28);
+    box-shadow: 0px 0px 5px 1px rgb(252, 28, 28);
 }
 
 /* Create new book */

@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import './home.css'
 import Spinner from "../loader/loader";
 const geturl = "https://booklistbackend-nx2z.onrender.com/login/user/getBooks"
-//const geturl = "http://localhost:5000/login/user/getBooks";
+// const geturl = "http://localhost:5000/login/user/getBooks";
 const postBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/postBooks";
-//const postBookurl = "http://localhost:5000/login/user/postBooks";
+// const postBookurl = "http://localhost:5000/login/user/postBooks";
 const deleteUrl = "https://booklistbackend-nx2z.onrender.com/login/user/deleteBooks";
-//const deleteUrl = "http://localhost:5000/login/user/deleteBooks";
+// const deleteUrl = "http://localhost:5000/login/user/deleteBooks";
 const putBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/putBooks";
-//const putBookurl = "http://localhost:5000/login/user/putBooks";
+// const putBookurl = "http://localhost:5000/login/user/putBooks";
 
 
 function Home() {
