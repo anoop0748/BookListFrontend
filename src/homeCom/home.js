@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import './home.css'
 import Spinner from "../loader/loader";
+import {pdfExports} from '../pdfComponent/pdf'
 const geturl = "https://booklistbackend-nx2z.onrender.com/login/user/getBooks"
 // const geturl = "http://localhost:5000/login/user/getBooks";
 const postBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/postBooks";
@@ -10,7 +11,7 @@ const postBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/postBo
 const deleteUrl = "https://booklistbackend-nx2z.onrender.com/login/user/deleteBooks";
 // const deleteUrl = "http://localhost:5000/login/user/deleteBooks";
 const putBookurl = "https://booklistbackend-nx2z.onrender.com/login/user/putBooks";
-// const putBookurl = "http://localhost:5000/login/user/putBooks";
+//  const putBookurl = "http://localhost:5000/login/user/putBooks";
 
 
 function Home() {
@@ -93,6 +94,14 @@ function Home() {
         let book = books[idx];
         setBook_details(book);
         setbookDtFlag(true)
+
+    }
+    //export as pdf function
+    function getPdf(idx) {
+        let pdfbook = books[idx];
+        console.log(pdfbook)
+        pdfExports(pdfbook)
+        
 
     }
     // Update exting Book
@@ -219,6 +228,10 @@ function Home() {
                             <label>Publisher</label>
                             <input type="text" value={updatedBook.publisherOfBook} onChange={(e) => { setUpdatedBook({ ...updatedBook, publisherOfBook: e.target.value, }) }} />
                         </div>
+                        <div>
+                            <label>Content</label>
+                            <input type="text" value={updatedBook.content} onChange={(e) => { setUpdatedBook({ ...updatedBook, content: e.target.value, }) }} />
+                        </div>
                         <button onClick={(e) => { handleUpdatebook(e) }}>Submit</button>
                     </div>
 
@@ -273,6 +286,12 @@ function Home() {
                                 <td>{book_details.description}</td>
 
                             </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Content</td>
+                                <td>{book_details.content}</td>
+
+                            </tr>
                         </table>
                         <div className="two_btnCont">
                             <button id="delete_btn" onClick={() => { deleteBook() }}>Delete Book</button>
@@ -300,6 +319,7 @@ function Home() {
                                         <input type="text" placeholder="Description" onBlur={(e) => { setnewBook({ ...newBook, description: e.target.value, }) }} />
                                         <input type="text" placeholder="Genres" onBlur={(e) => { setnewBook({ ...newBook, genres: e.target.value, }) }} />
                                         <input type="text" placeholder="Book Publisher" onBlur={(e) => { setnewBook({ ...newBook, publisherOfBook: e.target.value, }) }} />
+                                        <input type="text" placeholder="Book Content" onBlur={(e) => { setnewBook({ ...newBook, content: e.target.value, }) }} />
                                         <button onClick={(e) => { handleAddnewbook(e) }}>Submit</button>
                                     </div>
 
@@ -315,14 +335,17 @@ function Home() {
                                     <div className="books_cont">
                                         {books?.map((val, idx) => {
                                             return (
-                                                //  onMouseLeave={()=>{funMouseLeave()}}
-                                                <div className="book_show" key={idx} onClick={() => { getbookDetails(idx) }}
+                                                
+                                                <div className="book_show" key={idx} 
                                                  onMouseEnter={()=>{funOnMouseEnter(idx)}} onMouseLeave={()=>{funMouseLeave()}}>
                                                     <img src={val.bookImg} />
                                                     <h3>Title - {val.title}</h3>
                                                     <span>Date - {new Date(val.date).toLocaleDateString()}</span>
                                                     <h3>Genres - {val.genres}</h3>
-                                                    {mouseUpBookInf && idx === mouseUpIdex?<button id="about-book-btn" onClick={() => { getbookDetails(idx) }}>About Book</button>:""}
+                                                    {mouseUpBookInf && idx === mouseUpIdex?
+                                                    <>
+                                                    <button id="about-book-btn" onClick={() => { getbookDetails(idx) }}>About Book</button>
+                                                    <button id="book-pdf-btn" onClick={()=>{getPdf(idx)}}>Export PDF</button> </> :""}
                                                 </div>
                                             )
                                         })}

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.css'
 import Spinner from '../loader/loader';
 const regUrl = "https://booklistbackend-nx2z.onrender.com/login/user"
-// const regUrl = "http://localhost:5000/login/user"
+// const regUrl = "http://localhost:5000/login/user" 
 
 
 function Login(){

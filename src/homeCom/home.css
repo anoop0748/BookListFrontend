@@ -91,20 +91,40 @@
 }
 .book_show>#about-book-btn{
     position: relative;
-    left: auto;
+    left: 0%;
     bottom: 10%;
-    width: 90%;
+    width: 45%;
     height: 6vh;
     margin: 0px 5%;
     border-top-left-radius: 8vh;
-    border-bottom-right-radius: 8vh;
-    transition: 2s;
+    
+    transition: 0s;
     border-style: double;
-    font-size: 1rem;
+    font-size: 0.9rem;
     background: radial-gradient(rgba(0, 0, 0, 0.98),rgb(153, 0, 255),rgb(98 0 255));
     color: #fff;
     border-color: red;
     
+}
+.book_show>#book-pdf-btn{
+    position: relative;
+    left: 47%;
+    bottom: 19.5%;
+    width: 45%;
+    height: 6vh;
+    margin: 0px 5%;
+    border-bottom-right-radius: 8vh;
+    transition: 0s;
+    border-style: double;
+    font-size: 0.9rem;
+    background: radial-gradient(rgba(0, 0, 0, 0.98),rgb(153, 0, 255),rgb(98 0 255));
+    color: #fff;
+    border-color: red;
+
+}
+#book-pdf-btn:hover{
+    border-color: rgb(237, 252, 28);
+    box-shadow: 0px 0px 5px 1px rgb(252, 28, 28);
 }
 #about-book-btn:hover{
     border-color: rgb(237, 252, 28);
